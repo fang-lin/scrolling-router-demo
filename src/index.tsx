@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import flowRight from 'lodash/flowRight';
 import App from './App';
+import './index.css';
+import withWindowResize from './high-order/withWindowResize';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const ComposedApp = flowRight([withWindowResize])(App);
+
+ReactDOM.render(<ComposedApp />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

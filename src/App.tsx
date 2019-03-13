@@ -1,28 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { createBrowserHistory } from 'history';
+import { Router, Route } from 'react-router';
+import { Main, HowSecure, Feedback, MyFinances, MyHomeLoan, MyPreferences, ReaHomeLoan } from "./pages";
+import { WithWindowResizeProps } from "./high-order/withWindowResize";
+import Header from "./components/Header";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+const browserHistory = createBrowserHistory();
+
+type AppProps = WithWindowResizeProps;
+
+const App = (props: AppProps) => {
+  return (
+    <Router history={browserHistory}>
+      <div>
+        <Header />
+        <Route exact path="/" component={() => <Main {...props} />} />
+        <Route path="/how-secure" component={() => <HowSecure {...props} />} />
+        <Route path="/feedback" component={() => <Feedback {...props} />} />
+        <Route path="/my-finances" component={() => <MyFinances {...props} />} />
+        <Route path="/my-home-loan" component={() => <MyHomeLoan {...props} />} />
+        <Route path="/my-preferences" component={() => <MyPreferences {...props} />} />
+        <Route path="/rea-home-loan" component={() => <ReaHomeLoan {...props} />} />
       </div>
-    );
-  }
+    </Router >
+  );
 }
 
 export default App;
