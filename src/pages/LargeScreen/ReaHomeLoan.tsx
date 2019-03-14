@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { ISectionProps } from '../types';
 
 const ReaHomeLoanSection = styled("section")`
-    height: 480px;
+    height: 340px;
     padding: 20px;
     background-color: #ffe;
 `;

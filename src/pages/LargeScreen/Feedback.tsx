@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ISectionProps } from '../types';
 
 const FeedbackSection = styled("section")`
-    height: 480px;
+    height: 620px;
     padding: 20px;
     background-color: #fee;
 `;

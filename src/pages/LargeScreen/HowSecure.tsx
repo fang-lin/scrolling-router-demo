@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ISectionProps } from "../types";
 
 const HowSecureSection = styled("section")`
-    height: 480px;
+    height: 440px;
     padding: 20px;
     background-color: #fef;
 `;

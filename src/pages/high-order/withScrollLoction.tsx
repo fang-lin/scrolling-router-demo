@@ -10,6 +10,7 @@ interface ISection {
     element: HTMLElement;
     path: string;
 }
+
 interface ISectionRect {
     path: string;
     top: number,
@@ -20,7 +21,7 @@ export interface WithScrollLocationProps {
 }
 
 function getCurrentSection(sections: ISection[]): ISectionRect {
-    const windowHeight = window.outerHeight;
+    const windowHeight = window.document.documentElement.clientHeight;
     const sectionsWithVisibleHiehgt = sections.map(({ element, path }) => {
         let { top, height } = element.getBoundingClientRect();
         let visibleHiehgt: number = 0;
@@ -28,7 +29,7 @@ function getCurrentSection(sections: ISection[]): ISectionRect {
         if (top + height <= 0 || top >= windowHeight) {
             visibleHiehgt = 0;
         } else {
-            if (top <= 0 && top + height >= windowHeight) {
+            if (top < 0 && top + height > windowHeight) {
                 visibleHiehgt = windowHeight;
             } else if (top >= 0 && top + height <= windowHeight) {
                 visibleHiehgt = height;
@@ -38,12 +39,7 @@ function getCurrentSection(sections: ISection[]): ISectionRect {
                 visibleHiehgt = windowHeight - top;
             }
         }
-        return {
-            path,
-            element,
-            top,
-            visibleHiehgt,
-        }
+        return { path, element, top, visibleHiehgt }
     });
     const { path = "", top = 0 } = maxBy(sectionsWithVisibleHiehgt, ({ visibleHiehgt }) => visibleHiehgt) || {};
     return { path, top };

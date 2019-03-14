@@ -1,11 +1,11 @@
 import React, { createElement } from 'react';
-import { createBrowserHistory } from 'history';
+import { createHashHistory } from 'history';
 import { Router, Route, Switch } from 'react-router';
 import { WithWindowResizeProps } from "./high-order/withWindowResize";
 import routes from "./routes";
 import { LargeScreenMain, SmallScreenMain } from './pages';
 
-const browserHistory = createBrowserHistory();
+const browserHistory = createHashHistory();
 
 type AppProps = WithWindowResizeProps;
 

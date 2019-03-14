@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ISectionProps } from '../pages/types';
 
 const FooterSection = styled("footer")`
-    height: 480px;
+    height: 700px;
     padding: 20px;
     background-color: #eee;
 `;

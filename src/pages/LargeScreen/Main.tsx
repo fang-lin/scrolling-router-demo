@@ -3,6 +3,7 @@ import styled from "styled-components";
 import HowSecure from "./HowSecure";
 import Feedback from "./Feedback";
 import MyFinances from "./MyFinances";
+import CalculatorsAndArticles from "./CalculatorsAndArticles";
 import MyHomeLoan from "./MyHomeLoan";
 import MyPreferences from "./MyPreferences";
 import ReaHomeLoan from "./ReaHomeLoan";
@@ -18,12 +19,13 @@ const Main = (props: any) => {
     return (
         <MainBlock>
             <Header {...props} />
-            <HowSecure {...props} />
-            <Feedback  {...props} />
+            <MyPreferences {...props} />
             <MyFinances  {...props} />
             <MyHomeLoan  {...props} />
-            <MyPreferences {...props} />
+            <CalculatorsAndArticles  {...props} />
             <ReaHomeLoan  {...props} />
+            <HowSecure {...props} />
+            <Feedback  {...props} />
             <Footer {...props} />
         </MainBlock>
     );

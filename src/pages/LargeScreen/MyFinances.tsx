@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ISectionProps } from "../types";
 
 const MyFinancesSection = styled("section")`
-    height: 480px;
+    height: 400px;
     padding: 20px;
     background-color: #eef;
 `;
