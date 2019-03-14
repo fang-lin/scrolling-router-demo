@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SmallScreen = () => {
+const Main = () => {
     return (
         <div>
             <h1>Main</h1>
@@ -8,4 +8,4 @@ const SmallScreen = () => {
     );
 }
 
-export default SmallScreen;
+export default Main;
