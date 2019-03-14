@@ -16,7 +16,7 @@ const withWindowResize = (ComposeComponent: ComponentType<WithWindowResizeProps>
         };
 
         isInLargeScreen = () => {
-            this.setState({ isLargeScreen: window.outerWidth >= MIN_WIDTH_IN_LARGE_SCREEN });
+            this.setState({ isLargeScreen: window.document.documentElement.clientWidth >= MIN_WIDTH_IN_LARGE_SCREEN });
         }
         componentDidMount() {
             this.isInLargeScreen();
