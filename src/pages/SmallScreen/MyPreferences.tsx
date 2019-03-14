@@ -1,9 +1,10 @@
 import React from 'react';
+import TitleBar from './TitleBar';
 
 const MyPreferences = () => {
     return (
         <div>
-            <h1>MyPreferences</h1>
+            <TitleBar title="My Preferences" />
         </div>
     );
 }

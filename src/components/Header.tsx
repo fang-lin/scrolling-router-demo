@@ -1,17 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { ISectionProps } from '../pages/types';
 
 const HeaderSection = styled("header")`
 
 `;
 
-const Header: FunctionComponent<ISectionProps> = (props) => {
+const Header: FunctionComponent<{}> = (props) => {
     return (
-        <HeaderSection ref={props.setSectionRef()}>
+        <HeaderSection>
             <ul>
-                <li><Link to="">Main</Link></li>
                 <li><Link to="how-secure">How Secure</Link></li>
                 <li><Link to="feedback">Feedback</Link></li>
                 <li><Link to="my-finances">My Finances</Link></li>

@@ -1,9 +1,10 @@
 import React from 'react';
+import TitleBar from "./TitleBar";
 
 const Feedback = () => {
     return (
         <div>
-            <h1>Feedback</h1>
+            <TitleBar title="Feedback" />
         </div>
     );
 }

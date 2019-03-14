@@ -8,9 +8,9 @@ const FooterSection = styled("footer")`
     background-color: #eee;
 `;
 
-const Footer: FunctionComponent<ISectionProps> = (props) => {
+const Footer: FunctionComponent<{}> = (props) => {
     return (
-        <FooterSection ref={props.setSectionRef()}>
+        <FooterSection>
             <h1>Footer</h1>
         </FooterSection>
     );

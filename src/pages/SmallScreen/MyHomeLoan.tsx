@@ -1,9 +1,10 @@
 import React from 'react';
+import TitleBar from './TitleBar';
 
 const MyHomeLoan = () => {
     return (
         <div>
-            <h1>MyHomeLoan</h1>
+            <TitleBar title="My Home Loan" />
         </div>
     );
 }

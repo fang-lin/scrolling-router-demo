@@ -1,9 +1,10 @@
 import React from 'react';
+import TitleBar from './TitleBar';
 
 const HowSecure = () => {
     return (
         <div>
-            <h1>HowSecure</h1>
+            <TitleBar title="How Secure" />
         </div>
     );
 }

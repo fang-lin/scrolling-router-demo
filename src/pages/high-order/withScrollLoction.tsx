@@ -2,9 +2,6 @@ import React, { Component, ComponentType } from 'react';
 import { History } from 'history';
 import maxBy from 'lodash/maxBy';
 import find from 'lodash/find';
-import throttle from 'lodash/throttle';
-
-const MIN_INVOKE_INTERVAL = 300;
 
 interface WithScrollLocationState {
 }
@@ -53,9 +50,10 @@ function getCurrentSection(sections: ISection[]): ISectionRect {
 }
 
 function scrollToSection(sections: ISection[], history: History, ) {
-    const currentSection = getCurrentSection(sections);
-    if (history.location.pathname !== currentSection.path) {
-        const toSection = find(sections, ({ path }) => path === history.location.pathname);
+    const { path } = getCurrentSection(sections);
+    const { pathname } = history.location;
+    if (pathname !== path) {
+        const toSection = find(sections, ({ path }) => path === pathname);
         if (toSection) {
             const { top } = toSection.element.getBoundingClientRect();
             window.scrollTo(0, window.scrollY + top);
@@ -80,9 +78,10 @@ const withScrollLocation = (ComposeComponent: ComponentType<WithScrollLocationPr
         };
 
         scrollHandler = () => {
-            const currentSection = getCurrentSection(this.sections);
-            if (this.props.history.location.pathname !== currentSection.path) {
-                this.props.history.replace(currentSection.path);
+            const { path } = getCurrentSection(this.sections);
+            const { pathname, search } = this.props.history.location;
+            if (pathname !== path) {
+                this.props.history.replace(path + search);
             }
         };
 
