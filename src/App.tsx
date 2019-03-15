@@ -1,4 +1,4 @@
-import React, { createElement } from 'react';
+import React, { createElement, Component } from 'react';
 import { createHashHistory } from 'history';
 import { Router, Route, Switch } from 'react-router';
 import { WithWindowResizeProps } from "./high-order/withWindowResize";
@@ -17,17 +17,12 @@ const App = (props: AppProps) => {
       {
         isLargeScreen ?
           <Switch>
-            {
-              routes.map(({ path, component }) =>
-                <Route key={path} path={path} component={(routeProps: any) => createElement(component.large, { ...routeProps }, null)} />
-              )
-            }
-            <Route path="/" component={(routeProps: any) => <LargeScreenMain {...routeProps} />} />
+            <Route component={LargeScreenMain} />
           </Switch> :
           <Switch>
             {
               routes.map(({ path, component }) =>
-                <Route key={path} path={path} component={component.small} />
+                <Route key={path} path={path} component={component} />
               )
             }
             <Route path="/" component={SmallScreenMain} />

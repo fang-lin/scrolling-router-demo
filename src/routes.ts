@@ -13,47 +13,28 @@ import {
 const routes = [
     {
         path: "/how-secure",
-        component: {
-            small: SmallScreenHowSecure,
-            large: LargeScreenMain,
-        }
+        component: SmallScreenHowSecure
     },
     {
         path: "/feedback",
-        component: {
-            small: SmallScreenFeedback,
-            large: LargeScreenMain,
-        }
+        component: SmallScreenFeedback
     },
     {
         path: "/my-finances",
-        component: {
-            small: SmallScreenMyFinances,
-            large: LargeScreenMain,
-        }
+        component: SmallScreenMyFinances
     },
     {
         path: "/my-home-loan",
-        component: {
-            small: SmallScreenMyHomeLoan,
-            large: LargeScreenMain,
-        }
+        component: SmallScreenMyHomeLoan
     },
     {
         path: "/my-preferences",
-        component: {
-            small: SmallScreenMyPreferences,
-            large: LargeScreenMain,
-        }
+        component: SmallScreenMyPreferences
     },
     {
         path: "/rea-home-loan",
-        component: {
-            small: SmallScreenReaHomeLoan,
-            large: LargeScreenMain,
-        }
+        component: SmallScreenReaHomeLoan
     }
 ];
 
-// export const routesMap = new Map(routes.map<[string, string]>(({ path, name }) => [path, name]));
 export default routes;

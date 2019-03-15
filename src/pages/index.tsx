@@ -6,9 +6,10 @@ import SmallScreenMyFinances from "./SmallScreen/MyFinances";
 import SmallScreenMyHomeLoan from "./SmallScreen/MyHomeLoan";
 import SmallScreenMyPreferences from "./SmallScreen/MyPreferences";
 import SmallScreenReaHomeLoan from "./SmallScreen/ReaHomeLoan";
-import withScrollLoction from "./high-order/withScrollLoction";
+import withScrollRouter from "./high-order/withScrollRouter";
+import flowRight from "lodash/flowRight";
 
-export const LargeScreenMain = withScrollLoction(RootLargeScreenMain);
+export const LargeScreenMain = flowRight([withScrollRouter])(RootLargeScreenMain);
 
 export {
     SmallScreenMain,

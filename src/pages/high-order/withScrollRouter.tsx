@@ -3,7 +3,7 @@ import { History } from 'history';
 import maxBy from 'lodash/maxBy';
 import find from 'lodash/find';
 
-interface WithScrollLocationState {
+interface WithScrollRouterState {
 }
 
 interface ISection {
@@ -16,7 +16,7 @@ interface ISectionRect {
     top: number,
 }
 
-export interface WithScrollLocationProps {
+export interface WithScrollRouterProps {
     setSectionRef(path: string): (element: HTMLElement | null) => void;
 }
 
@@ -57,8 +57,8 @@ function scrollToSection(sections: ISection[], history: History, ) {
     }
 }
 
-const withScrollLocation = (ComposeComponent: ComponentType<WithScrollLocationProps>) => {
-    return class WithScrollLocation extends Component<any, WithScrollLocationState> {
+const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>) => {
+    return class WithScrollRouter extends Component<any, WithScrollRouterState> {
 
         sections: ISection[] = [];
         lastInvokeTime: number = 0;
@@ -96,4 +96,4 @@ const withScrollLocation = (ComposeComponent: ComponentType<WithScrollLocationPr
     }
 }
 
-export default withScrollLocation;
+export default withScrollRouter;
