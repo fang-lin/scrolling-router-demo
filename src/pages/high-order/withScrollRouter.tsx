@@ -12,7 +12,7 @@ function isFocusSection(top: number, height: number, viewFocucHeight: number = 0
     return top <= viewFocucHeight && top + height >= viewFocucHeight;
 }
 
-function getFocusSectionPath(sections: { [key: string]: HTMLElement }): string {
+function getFocusSectionPath(sections: { [path: string]: HTMLElement }): string {
     const viewFocucHeight = window.document.documentElement.clientHeight * VIEW_FOCUS_RATIO;
     let toPath = "";
     for (let path in sections) {
@@ -25,7 +25,7 @@ function getFocusSectionPath(sections: { [key: string]: HTMLElement }): string {
     return toPath;
 }
 
-function scrollToSection(sections: { [key: string]: HTMLElement }, history: History, ) {
+function scrollToSection(sections: { [path: string]: HTMLElement }, history: History, ) {
     const section = sections[history.location.pathname];
     if (section) {
         const { top } = section.getBoundingClientRect();
@@ -33,15 +33,15 @@ function scrollToSection(sections: { [key: string]: HTMLElement }, history: Hist
     }
 }
 
-const VIEW_FOCUS_RATIO = .1;
+const VIEW_FOCUS_RATIO = .2;
 
 const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>) => {
     return class WithScrollRouter extends Component<any, {}> {
-        sections: { [key: string]: HTMLElement } = {};
+        sections: { [path: string]: HTMLElement } = {};
 
         setSectionRef: SetSectionRef = (element) => {
             if (element) {
-                const path = element.getAttribute("data-Path");
+                const path = element.getAttribute("data-path");
                 if (path) {
                     this.sections[path] = element;
                 }
