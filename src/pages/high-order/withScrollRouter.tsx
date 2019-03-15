@@ -18,8 +18,9 @@ interface ISectionRect {
     visibleHiehgt: number;
 }
 
+type SetSectionRef = (path: string) => (element: HTMLElement | null) => void;
 export interface WithScrollRouterProps {
-    setSectionRef(path: string): (element: HTMLElement | null) => void;
+    setSectionRef: SetSectionRef;
 }
 
 function getVisibleHiehgt(windowHeight: number, top: number, height: number): number {
@@ -77,7 +78,7 @@ const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>
     return class WithScrollRouter extends Component<any, {}> {
         sections: { [key: string]: ISection } = {};
 
-        setSectionRef = (path: string) => (element: HTMLElement | null) => {
+        setSectionRef: SetSectionRef = (path) => (element) => {
             if (path && element) {
                 const section = this.sections[path];
                 if (section) {
@@ -94,7 +95,7 @@ const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>
 
         scrollHandler = throttle(() => {
             const { visibleHiehgt, path } = getCurrentSectionRect(this.sections);
-            if (visibleHiehgt) {
+            if (visibleHiehgt > 0) {
                 const { pathname, search } = this.props.history.location;
                 if (pathname !== path) {
                     this.props.history.replace(path + search);
