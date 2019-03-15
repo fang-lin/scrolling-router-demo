@@ -9,7 +9,7 @@ const MainWrapper = styled("div")`
 const Main = () => {
     return (
         <MainWrapper>
-            <TitleBar title="REA Home Loan" />
+            <TitleBar title="Main Page" />
             <ul>
                 <li><Link to="my-preferences">My Preferences</Link></li>
                 <li><Link to="my-finances">My Finances</Link></li>

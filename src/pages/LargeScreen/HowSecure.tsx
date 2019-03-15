@@ -10,7 +10,7 @@ const HowSecureSection = styled("section")`
 
 const HowSecure: FunctionComponent<ISectionProps> = (props) => {
     return (
-        <HowSecureSection ref={props.setSectionRef("/how-secure")}>
+        <HowSecureSection ref={props.setSectionRef} data-path="/how-secure">
             <h1>HowSecure</h1>
         </HowSecureSection>
     );

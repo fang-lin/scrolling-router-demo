@@ -10,7 +10,7 @@ const MyPreferencesSection = styled("section")`
 
 const MyPreferences: FunctionComponent<ISectionProps> = (props) => {
     return (
-        <MyPreferencesSection ref={props.setSectionRef("/my-preferences")}>
+        <MyPreferencesSection ref={props.setSectionRef} data-path="/my-preferences">
             <h1>MyPreferences</h1>
         </MyPreferencesSection>
     );

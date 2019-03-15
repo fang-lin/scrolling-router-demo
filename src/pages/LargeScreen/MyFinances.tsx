@@ -10,7 +10,7 @@ const MyFinancesSection = styled("section")`
 
 const MyFinances: FunctionComponent<ISectionProps> = (props) => {
     return (
-        <MyFinancesSection ref={props.setSectionRef("/my-finances")}>
+        <MyFinancesSection ref={props.setSectionRef} data-path="/my-finances">
             <h1>MyFinances</h1>
         </MyFinancesSection>
     );

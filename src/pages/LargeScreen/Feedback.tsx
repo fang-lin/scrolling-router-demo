@@ -10,7 +10,7 @@ const FeedbackSection = styled("section")`
 
 const Feedback: FunctionComponent<ISectionProps> = (props) => {
     return (
-        <FeedbackSection ref={props.setSectionRef("/feedback")}>
+        <FeedbackSection ref={props.setSectionRef} data-path="/feedback">
             <h1>Feedback</h1>
         </FeedbackSection>
     );
