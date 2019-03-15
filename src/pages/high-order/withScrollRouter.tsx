@@ -1,5 +1,5 @@
 import React, { Component, ComponentType } from "react";
-import { scrollEventOptions } from "../../utils/passiveEventOption";
+import { passiveEventOptions } from "../../utils/passiveEventOption";
 import { History } from "history";
 import throttle from "lodash/throttle";
 
@@ -57,7 +57,7 @@ const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>
         }, 200);
 
         componentDidMount() {
-            window.addEventListener("scroll", this.scrollHandler, scrollEventOptions);
+            window.addEventListener("scroll", this.scrollHandler, passiveEventOptions);
             window.requestAnimationFrame(() => scrollToSection(this.sections, this.props.history));
         }
 

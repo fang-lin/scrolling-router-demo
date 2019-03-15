@@ -1,7 +1,7 @@
 import React, { Component, ComponentType } from 'react';
 import getScreenSize from '../utils/screenSize';
 import throttle from "lodash/throttle";
-import { scrollEventOptions } from "../utils/passiveEventOption";
+import { passiveEventOptions } from "../utils/passiveEventOption";
 
 interface WithWindowResizeState {
     isLargeScreen: boolean;
@@ -23,7 +23,7 @@ const withWindowResize = (ComposeComponent: ComponentType<WithWindowResizeProps>
 
         componentDidMount() {
             this.isInLargeScreen();
-            window.addEventListener("resize", this.isInLargeScreen, scrollEventOptions);
+            window.addEventListener("resize", this.isInLargeScreen, passiveEventOptions);
         }
 
         componentWillUnmount() {
