@@ -14,7 +14,7 @@ function isFocusSection(top: number, height: number, viewFocucHeight: number = 0
 
 function getFocusSectionPath(sections: { [path: string]: HTMLElement }): string {
     const viewFocucHeight = window.document.documentElement.clientHeight * VIEW_FOCUS_RATIO;
-    let toPath = "/";
+    let toPath = "";
     for (let path in sections) {
         const { top, height } = sections[path].getBoundingClientRect();
         if (isFocusSection(top, height, viewFocucHeight)) {
