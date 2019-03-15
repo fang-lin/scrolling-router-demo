@@ -9,13 +9,14 @@ const TitleBarWrapper = styled("div")`
 
 interface TitleBarProps {
     title: string;
+    withoutLink?: boolean;
 }
 
 const TitleBar: FunctionComponent<TitleBarProps> = (props) => {
-    const { title } = props;
+    const { title, withoutLink } = props;
     return (
         <TitleBarWrapper>
-            <Link to="/">Back</Link>
+            {withoutLink || <Link to="/">Back</Link>}
             <h1>{title}</h1>
         </TitleBarWrapper>
     );

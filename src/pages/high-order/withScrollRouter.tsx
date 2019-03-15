@@ -14,7 +14,7 @@ function isFocusSection(top: number, height: number, viewFocucHeight: number = 0
 
 function getFocusSectionPath(sections: { [path: string]: HTMLElement }): string {
     const viewFocucHeight = window.document.documentElement.clientHeight * VIEW_FOCUS_RATIO;
-    let toPath = "";
+    let toPath = "/";
     for (let path in sections) {
         const { top, height } = sections[path].getBoundingClientRect();
         if (isFocusSection(top, height, viewFocucHeight)) {
@@ -52,8 +52,7 @@ const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>
             const path = getFocusSectionPath(this.sections);
             const { pathname, search } = this.props.history.location;
             if (pathname !== path) {
-                const toPath = path ? path : "/";
-                this.props.history.replace(toPath + search);
+                this.props.history.replace(path || "/" + search);
             }
         }, 200);
 

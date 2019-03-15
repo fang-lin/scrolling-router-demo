@@ -9,7 +9,7 @@ const MainWrapper = styled("div")`
 const Main = () => {
     return (
         <MainWrapper>
-            <TitleBar title="Main Page" />
+            <TitleBar title="Main Page" withoutLink={true} />
             <ul>
                 <li><Link to="my-preferences">My Preferences</Link></li>
                 <li><Link to="my-finances">My Finances</Link></li>
