@@ -20,25 +20,29 @@ export interface WithScrollRouterProps {
     setSectionRef(path: string): (element: HTMLElement | null) => void;
 }
 
+function getVisibleHiehgt(windowHeight: number, top: number, height: number): number {
+    let visibleHiehgt: number = 0;
+    if (top + height <= 0 || top >= windowHeight) {
+        visibleHiehgt = 0;
+    } else {
+        if (top < 0 && top + height > windowHeight) {
+            visibleHiehgt = windowHeight;
+        } else if (top >= 0 && top + height <= windowHeight) {
+            visibleHiehgt = height;
+        } else if (top < 0) {
+            visibleHiehgt = height + top;
+        } else if (top + height > windowHeight) {
+            visibleHiehgt = windowHeight - top;
+        }
+    }
+    return visibleHiehgt;
+}
+
 function getCurrentSection(sections: ISection[]): ISectionRect {
     const windowHeight = window.document.documentElement.clientHeight;
     const sectionsWithVisibleHiehgt = sections.map(({ element, path }) => {
-        let { top, height } = element.getBoundingClientRect();
-        let visibleHiehgt: number = 0;
-
-        if (top + height <= 0 || top >= windowHeight) {
-            visibleHiehgt = 0;
-        } else {
-            if (top < 0 && top + height > windowHeight) {
-                visibleHiehgt = windowHeight;
-            } else if (top >= 0 && top + height <= windowHeight) {
-                visibleHiehgt = height;
-            } else if (top < 0) {
-                visibleHiehgt = height + top;
-            } else if (top + height > windowHeight) {
-                visibleHiehgt = windowHeight - top;
-            }
-        }
+        const { top, height } = element.getBoundingClientRect();
+        const visibleHiehgt = getVisibleHiehgt(windowHeight, top, height);
         return { path, element, top, visibleHiehgt }
     });
     const { path = "", top = 0 } = maxBy(sectionsWithVisibleHiehgt, ({ visibleHiehgt }) => visibleHiehgt) || {};
@@ -83,7 +87,7 @@ const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>
 
         componentDidMount() {
             scrollToSection(this.sections, this.props.history);
-            window.addEventListener("scroll", this.scrollHandler);
+            window.addEventListener("scroll", this.scrollHandler, { passive: true });
         }
 
         componentWillUnmount() {

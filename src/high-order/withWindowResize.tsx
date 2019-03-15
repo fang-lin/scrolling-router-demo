@@ -1,5 +1,5 @@
 import React, { Component, ComponentType } from 'react';
-const MIN_WIDTH_IN_LARGE_SCREEN = 768;
+import getScreenSize from '../utils/screenSize';
 
 interface WithWindowResizeState {
     isLargeScreen: boolean;
@@ -16,7 +16,7 @@ const withWindowResize = (ComposeComponent: ComponentType<WithWindowResizeProps>
         };
 
         isInLargeScreen = () => {
-            this.setState({ isLargeScreen: window.document.documentElement.clientWidth >= MIN_WIDTH_IN_LARGE_SCREEN });
+            this.setState({ isLargeScreen: getScreenSize() === "L" });
         }
 
         componentDidMount() {
