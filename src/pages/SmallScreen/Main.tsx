@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import TitleBar from './TitleBar';
+import styled from 'styled-components';
+
+const MainWrapper = styled("div")`
+`;
 
 const Main = () => {
     return (
-        <div>
+        <MainWrapper>
             <TitleBar title="REA Home Loan" />
             <ul>
                 <li><Link to="my-preferences">My Preferences</Link></li>
@@ -14,7 +18,7 @@ const Main = () => {
                 <li><Link to="how-secure">How Secure</Link></li>
                 <li><Link to="feedback">Feedback</Link></li>
             </ul>
-        </div>
+        </MainWrapper>
     );
 }
 
