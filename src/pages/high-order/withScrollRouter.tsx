@@ -1,19 +1,20 @@
 import React, { Component, ComponentType } from 'react';
 import { History } from 'history';
 import maxBy from 'lodash/maxBy';
-import find from 'lodash/find';
-
-interface WithScrollRouterState {
-}
+import throttle from 'lodash/throttle';
+import map from 'lodash/map';
+import keys from 'lodash/keys';
+import sortBy from 'lodash/sortBy';
 
 interface ISection {
     element: HTMLElement;
-    path: string;
+    index: number;
 }
 
 interface ISectionRect {
     path: string;
-    top: number,
+    index: number;
+    visibleHiehgt: number;
 }
 
 export interface WithScrollRouterProps {
@@ -38,56 +39,69 @@ function getVisibleHiehgt(windowHeight: number, top: number, height: number): nu
     return visibleHiehgt;
 }
 
-function getCurrentSection(sections: ISection[]): ISectionRect {
+function getCurrentSectionRect(sections: { [key: string]: ISection }): ISectionRect {
     const windowHeight = window.document.documentElement.clientHeight;
-    const sectionsWithVisibleHiehgt = sections.map(({ element, path }) => {
+    const sectionsRect = map<{ [key: string]: ISection }, ISectionRect>(sections, ({ element, index }, path: string) => {
         const { top, height } = element.getBoundingClientRect();
-        const visibleHiehgt = getVisibleHiehgt(windowHeight, top, height);
-        return { path, element, top, visibleHiehgt }
+        const visibleHiehgt = getVisibleHiehgt(windowHeight, Math.round(top), Math.round(height));
+        return {
+            path,
+            index,
+            visibleHiehgt,
+        }
     });
-    const { path = "", top = 0 } = maxBy(sectionsWithVisibleHiehgt, ({ visibleHiehgt }) => visibleHiehgt) || {};
-    return { path, top };
+    const sortedSectionsRect = sortBy<ISectionRect>(sectionsRect, ({ index }) => index);
+    return maxBy<ISectionRect>(sortedSectionsRect, ({ visibleHiehgt }) => visibleHiehgt) || {
+        path: "",
+        index: NaN,
+        visibleHiehgt: NaN,
+    };
 }
 
-function scrollToSection(sections: ISection[], history: History, ) {
-    const { path } = getCurrentSection(sections);
+function scrollToSection(sections: { [key: string]: ISection }, history: History, ) {
+    const { path } = getCurrentSectionRect(sections);
     const { pathname } = history.location;
     if (pathname !== path) {
-        const toSection = find(sections, ({ path }) => path === pathname);
+        const toSection = sections[pathname];
         if (toSection) {
             const { top } = toSection.element.getBoundingClientRect();
-            window.scrollTo(0, window.scrollY + top);
+            window.scrollTo(0, document.documentElement.scrollTop + top);
         }
     }
 }
 
 const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>) => {
-    return class WithScrollRouter extends Component<any, WithScrollRouterState> {
-
-        sections: ISection[] = [];
-        lastInvokeTime: number = 0;
+    return class WithScrollRouter extends Component<any, {}> {
+        sections: { [key: string]: ISection } = {};
 
         setSectionRef = (path: string) => (element: HTMLElement | null) => {
-            if (path) {
-                element && this.sections.push({
-                    element,
-                    path,
-                });
+            if (path && element) {
+                const section = this.sections[path];
+                if (section) {
+                    section.element = element;
+                    this.sections[path] = section;
+                } else {
+                    this.sections[path] = {
+                        element,
+                        index: keys(this.sections).length
+                    };
+                }
             }
-            this.sections = this.sections.filter(section => document.body.contains(section.element));
         };
 
-        scrollHandler = () => {
-            const { path } = getCurrentSection(this.sections);
-            const { pathname, search } = this.props.history.location;
-            if (pathname !== path) {
-                this.props.history.replace(path + search);
+        scrollHandler = throttle(() => {
+            const { visibleHiehgt, path } = getCurrentSectionRect(this.sections);
+            if (visibleHiehgt) {
+                const { pathname, search } = this.props.history.location;
+                if (pathname !== path) {
+                    this.props.history.replace(path + search);
+                }
             }
-        };
+        }, 200);
 
         componentDidMount() {
             scrollToSection(this.sections, this.props.history);
-            window.addEventListener("scroll", this.scrollHandler, { passive: true });
+            window.addEventListener("scroll", this.scrollHandler);
         }
 
         componentWillUnmount() {

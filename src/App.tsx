@@ -1,9 +1,9 @@
-import React, { createElement, Component } from 'react';
+import React from 'react';
 import { createHashHistory } from 'history';
 import { Router, Route, Switch } from 'react-router';
 import { WithWindowResizeProps } from "./high-order/withWindowResize";
 import routes from "./routes";
-import { LargeScreenMain, SmallScreenMain } from './pages';
+import { LargeScreenMain } from './pages';
 
 const browserHistory = createHashHistory();
 
