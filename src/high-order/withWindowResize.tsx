@@ -1,5 +1,6 @@
 import React, { Component, ComponentType } from 'react';
 import getScreenSize from '../utils/screenSize';
+import detectPassiveEvents from 'detect-passive-events';
 
 interface WithWindowResizeState {
     isLargeScreen: boolean;
@@ -8,6 +9,8 @@ interface WithWindowResizeState {
 export interface WithWindowResizeProps {
     isLargeScreen: boolean;
 }
+
+const scrollEventOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
 
 const withWindowResize = (ComposeComponent: ComponentType<WithWindowResizeProps>) => {
     return class WithWindowResize extends Component<any, WithWindowResizeState> {
@@ -21,7 +24,7 @@ const withWindowResize = (ComposeComponent: ComponentType<WithWindowResizeProps>
 
         componentDidMount() {
             this.isInLargeScreen();
-            window.addEventListener("resize", this.isInLargeScreen);
+            window.addEventListener("resize", this.isInLargeScreen, scrollEventOptions);
         }
 
         componentWillUnmount() {

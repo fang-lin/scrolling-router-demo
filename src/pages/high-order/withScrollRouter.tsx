@@ -1,10 +1,11 @@
-import React, { Component, ComponentType } from 'react';
-import { History } from 'history';
-import maxBy from 'lodash/maxBy';
-import throttle from 'lodash/throttle';
-import map from 'lodash/map';
-import keys from 'lodash/keys';
-import sortBy from 'lodash/sortBy';
+import React, { Component, ComponentType } from "react";
+import detectPassiveEvents from "detect-passive-events";
+import { History } from "history";
+import maxBy from "lodash/maxBy";
+import throttle from "lodash/throttle";
+import map from "lodash/map";
+import keys from "lodash/keys";
+import sortBy from "lodash/sortBy";
 
 interface ISection {
     element: HTMLElement;
@@ -70,6 +71,8 @@ function scrollToSection(sections: { [key: string]: ISection }, history: History
     }
 }
 
+const scrollEventOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
+
 const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>) => {
     return class WithScrollRouter extends Component<any, {}> {
         sections: { [key: string]: ISection } = {};
@@ -101,7 +104,7 @@ const withScrollRouter = (ComposeComponent: ComponentType<WithScrollRouterProps>
 
         componentDidMount() {
             scrollToSection(this.sections, this.props.history);
-            window.addEventListener("scroll", this.scrollHandler);
+            window.addEventListener("scroll", this.scrollHandler, scrollEventOptions);
         }
 
         componentWillUnmount() {
