@@ -1,7 +1,5 @@
-
-import { Component } from "react";
 import {
-    LargeScreenMain,
+    SmallScreenMain,
     SmallScreenHowSecure,
     SmallScreenFeedback,
     SmallScreenMyFinances,
@@ -34,6 +32,10 @@ const routes = [
     {
         path: "/rea-home-loan",
         component: SmallScreenReaHomeLoan
+    },
+    {
+        path: "/",
+        component: SmallScreenMain
     }
 ];
 

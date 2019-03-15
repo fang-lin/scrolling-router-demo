@@ -25,7 +25,6 @@ const App = (props: AppProps) => {
                 <Route key={path} path={path} component={component} />
               )
             }
-            <Route path="/" component={SmallScreenMain} />
           </Switch>
       }
     </Router >
