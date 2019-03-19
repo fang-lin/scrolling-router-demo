@@ -1,6 +1,6 @@
 import React, { cloneElement, FunctionComponent, ReactNode, ReactHTMLElement } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { slideLeft, slideRight, SlideGlobalStyle } from './slide';
+import { slideLeft, slideRight, GlobalStyle } from './animations';
 import SlideLink from './SlideLink';
 
 const childFactoryCreator = (props: any) =>
@@ -30,4 +30,4 @@ const Transitions: FunctionComponent<TransitionsProps> = ({ transition = '', dur
 
 export default Transitions;
 
-export { SlideGlobalStyle, slideLeft, slideRight, SlideLink };
+export { GlobalStyle, slideLeft, slideRight, SlideLink };

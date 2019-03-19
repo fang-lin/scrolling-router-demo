@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createBrowserHistory } from 'history';
 import { Router, Switch, Route } from 'react-router-dom';
 import { WithWindowResizeProps } from "./high-order/withWindowResize";
-import { SlideGlobalStyle, } from './transitions';
+import { GlobalStyle, } from './transitions';
 import routes from "./routes";
 import { LargeScreenMain } from './pages';
 import Transitions from './transitions';
@@ -19,6 +19,7 @@ const Perspective = styled.div`
   height: 100vh;
   width: 100%;
   overflow: hidden;
+  perspective: 100px;
 `;
 
 class App extends Component<AppProps, AppState>{
@@ -26,7 +27,7 @@ class App extends Component<AppProps, AppState>{
     const { isLargeScreen } = this.props;
     return (
       <div>
-        <SlideGlobalStyle {...{ isLargeScreen }} />
+        <GlobalStyle {...{ isLargeScreen }} />
         <Router history={browserHistory}>
           {
             isLargeScreen ?
