@@ -1,34 +1,56 @@
-import React from 'react';
-import { createHashHistory } from 'history';
-import { Router, Route, Switch } from 'react-router';
+import React, { Component } from 'react';
+import { createBrowserHistory } from 'history';
+import { Router, Switch, Route } from 'react-router-dom';
 import { WithWindowResizeProps } from "./high-order/withWindowResize";
+import { SlideGlobalStyle, } from './transitions';
 import routes from "./routes";
 import { LargeScreenMain } from './pages';
-
-const browserHistory = createHashHistory();
+import Transitions from './transitions';
+import styled from 'styled-components';
+const browserHistory = createBrowserHistory();
 
 type AppProps = WithWindowResizeProps;
+interface AppState {
+  isIn: boolean;
+  list: number[];
+}
 
-const App = (props: AppProps) => {
-  const { isLargeScreen } = props;
+const Perspective = styled.div`
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+`;
 
-  return (
-    <Router history={browserHistory}>
-      {
-        isLargeScreen ?
-          <Switch>
-            <Route component={LargeScreenMain} />
-          </Switch> :
-          <Switch>
-            {
-              routes.map(({ path, component }) =>
-                <Route key={path} path={path} component={component} />
-              )
-            }
-          </Switch>
-      }
-    </Router >
-  );
+class App extends Component<AppProps, AppState>{
+  render() {
+    const { isLargeScreen } = this.props;
+    return (
+      <div>
+        <SlideGlobalStyle {...{ isLargeScreen }} />
+        <Router history={browserHistory}>
+          {
+            isLargeScreen ?
+              <Switch>
+                <Route component={LargeScreenMain} />
+              </Switch> :
+              <Route render={({ location }) => (
+                <Perspective>
+                  <Transitions pageKey={location.key} {...location.state}>
+                    <Switch location={location}>
+                      {
+                        routes.map(({ path, component }) =>
+                          <Route exact key={path} path={path} component={component} />
+                        )
+                      }
+                    </Switch>
+                  </Transitions>
+                </Perspective>
+              )} />
+          }
+        </Router >
+      </div>
+    );
+  }
 }
 
 export default App;

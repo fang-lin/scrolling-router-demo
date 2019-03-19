@@ -1,24 +1,47 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { SlideLink } from '../../transitions';
 import TitleBar from './TitleBar';
+import CalculatorsAndArticles from './CalculatorsAndArticles';
+import { PageWrapper } from './Styles';
 import styled from 'styled-components';
 
-const MainWrapper = styled("div")`
+const Context = styled("div")`
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: scroll;
+`;
+
+const List = styled("ul")`
+    list-style: none;
+    padding: 0;
+    margin: 0;
+`;
+
+const Item = styled("li")`
+    padding: 40px;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #ccc;
 `;
 
 const Main = () => {
     return (
-        <MainWrapper>
-            <TitleBar title="Main Page" withoutLink={true} />
-            <ul>
-                <li><Link to="my-preferences">My Preferences</Link></li>
-                <li><Link to="my-finances">My Finances</Link></li>
-                <li><Link to="my-home-loan">My Home Loan</Link></li>
-                <li><Link to="rea-home-loan">REA Home Loan</Link></li>
-                <li><Link to="how-secure">How Secure</Link></li>
-                <li><Link to="feedback">Feedback</Link></li>
-            </ul>
-        </MainWrapper>
+        <PageWrapper>
+            <Context>
+                <List>
+                    <Item><SlideLink to="my-preferences">My Preferences</SlideLink></Item>
+                    <Item><SlideLink to="my-finances">My Finances</SlideLink></Item>
+                    <Item><SlideLink to="my-home-loan">My Home Loan</SlideLink></Item>
+                    <Item><CalculatorsAndArticles /></Item>
+                    <Item><SlideLink to="rea-home-loan">REA Home Loan</SlideLink></Item>
+                    <Item><SlideLink to="how-secure">How Secure</SlideLink></Item>
+                    <Item><SlideLink to="feedback">Feedback</SlideLink></Item>
+                </List>
+            </Context>
+        </PageWrapper>
     );
 }
 
